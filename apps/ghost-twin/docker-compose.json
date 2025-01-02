@@ -2,7 +2,7 @@
   "$schema": "../compose-schema.json",
   "services": [
     {
-      "name": "ghost",
+      "name": "ghost-twin",
       "image": "ghost:5.105.0",
       "dependsOn": ["ghostdb-twin"],
       "internalPort": 2368,

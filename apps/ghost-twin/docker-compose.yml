@@ -3,7 +3,7 @@ version: "3.9"
 services:
   ghost:
     image: ghost:5.105.0
-    container_name: ghost
+    container_name: ghost-twin
     depends_on:
       - ghostdb-twin
     restart: unless-stopped
@@ -35,22 +35,22 @@ services:
       # Web
       traefik.http.routers.ghost-insecure.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.ghost-insecure.entrypoints: web
-      traefik.http.routers.ghost-insecure.service: ghost
+      traefik.http.routers.ghost-insecure.service: ghost-twin
       traefik.http.routers.ghost-insecure.middlewares: ghost-web-redirect
       # Websecure
       traefik.http.routers.ghost.rule: Host(`${APP_DOMAIN}`)
       traefik.http.routers.ghost.entrypoints: websecure
-      traefik.http.routers.ghost.service: ghost
+      traefik.http.routers.ghost.service: ghost-twin
       traefik.http.routers.ghost.tls.certresolver: myresolver
       # Local domain
       traefik.http.routers.ghost-local-insecure.rule: Host(`ghost.${LOCAL_DOMAIN}`)
       traefik.http.routers.ghost-local-insecure.entrypoints: web
-      traefik.http.routers.ghost-local-insecure.service: ghost
+      traefik.http.routers.ghost-local-insecure.service: ghost-twin
       traefik.http.routers.ghost-local-insecure.middlewares: ghost-web-redirect
       # Local domain secure
       traefik.http.routers.ghost-local.rule: Host(`ghost.${LOCAL_DOMAIN}`)
       traefik.http.routers.ghost-local.entrypoints: websecure
-      traefik.http.routers.ghost-local.service: ghost
+      traefik.http.routers.ghost-local.service: ghost-twin
       traefik.http.routers.ghost-local.tls: true
       runtipi.managed: true
   ghostdb-twin:
